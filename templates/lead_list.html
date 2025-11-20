@@ -21,15 +21,13 @@
         <div
           class="h-full flex items-center border-gray-200 border p-4 rounded-lg"
         >
-          <img
-            alt="team"
-            class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-            src="https://dummyimage.com/80x80"
-          />
+          
           <div class="flex-grow">
             <h2 class="text-gray-900 title-font font-medium">
               <a href="{% url 'leads-detail' lead.id %}">{{lead.first_name}} {{lead.last_name}}</a>
+             
             </h2>
+              <a class="hover:text-blue-600" href="{% url 'leads-detail' lead.id %}">View this lead <i class="fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
       </div>

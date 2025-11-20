@@ -1,20 +1,21 @@
-<!DOCTYPE html>
+{% extends "base.html"%} {% load tailwind_filters %} {% block content%}
+<div class="max-w-lg mx-auto">
+  <form method="POST" action=".">
+    {% csrf_token %} {{form|crispy}}
+    <button
+      class="w-full text-white text-center bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+      type="submit"
+    >
+      Save Lead
+    </button>
+    <div class="mt-4">
+      <a class="text-gray-600 hover:text-blue-600" href="{%url 'leads-list'%}"
+        >Go back to leads
+      </a>
+    </div>
+  </form>
+</div>
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title></title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="" />
-  </head>
-  <body>
-    <form method='POST' action=".">
-      {% csrf_token %} {{form.as_p}}
-      <button type="submit">Save Lead</button>
-    </form>
+<script src="" async defer></script>
 
-    <script src="" async defer></script>
-  </body>
-</html>
+{%endblock%}

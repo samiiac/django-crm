@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<p>Are u sure?</p>
+<form method='POST' action='/leads/delete-lead/{{lead.id}}'>
+    {% csrf_token %}
+    
+    <button type='submit'>Submit</button>
+</form>
+
+{% endblock content %}

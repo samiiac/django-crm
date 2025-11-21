@@ -5,12 +5,17 @@
 <section class="text-gray-600 body-font">
   <div class="container px-15 py-20 mx-auto">
 
-    <div class="flex items-center justify-between text-center w-full mb-10">
+    <div class="flex items-center justify-between  w-full mb-10">
+    <div class='left'>
       <h1
-        class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900"
+        class="sm:text-3xl text-2xl font-medium title-font  text-gray-900"
       >
        Leads
+      
       </h1>
+       <a href="{% url 'category-list'%}" class='text-gray-400'>View Category</a> 
+    </div>
+
       <a href="{% url 'leads-create' %}" class="hover:text-blue-400">Create a new lead</a>
     
     </div>

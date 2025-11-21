@@ -200,7 +200,7 @@ class CategoryListView(LoginRequiredMixin, generic.ListView):
             queryset = Lead.objects.filter(organization=user.agent.organization)
 
         context.update(
-            {"unassigned_leads": queryset.filter(category__isnull=True).count()}
+            {"unassigned_leads": queryset.filter(agent__isnull=True).count()}
         )
         return context
 

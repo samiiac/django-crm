@@ -1,5 +1,5 @@
 from django import forms
-from .models import Lead,Agent
+from .models import Lead,Agent,Category
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm,UsernameField
 
@@ -36,3 +36,11 @@ class LeadCategoryUpdateForm(forms.ModelForm):
     class Meta:
         model = Lead
         fields = (  "category", )
+        
+    def __init__(self,args,**kwargs):
+        user = kwargs.pop('user')
+        super().__init__(*args,**kwargs)
+        if user.is_organizer:
+            self.fields["category"].queryset =  Category.objects.filter(organization = user.userprofile)
+        else:
+             self.fields["category"].queryset =  Category.objects.filter(organization = user.agent.organization)

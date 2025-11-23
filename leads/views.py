@@ -234,6 +234,12 @@ class LeadCategoryUpdateView(LoginRequiredMixin,generic.UpdateView):
     template_name = "lead_category_update.html"
     form_class = LeadCategoryUpdateForm
     
+    def get_form_kwargs(self):
+        
+        kwargs = super().get_form_kwargs()
+        kwargs["user" ] = self.request.user
+        return kwargs
+    
     def get_queryset(self):
         user = self.request.user
         queryset = Lead.objects.all()

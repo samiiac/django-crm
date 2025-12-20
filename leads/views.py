@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.core.mail import send_mail
-from .forms import CustomUserCreationForm, AssignAgentForm,LeadCategoryUpdateForm
+from .forms import CustomUserCreationForm, AssignAgentForm,LeadCategoryUpdateForm,CategoryModelForm
 from .models import Lead, Category
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -49,9 +49,11 @@ class LeadListView(LoginRequiredMixin, generic.ListView):
             queryset = queryset.filter(agent__user=user)
             # leads assigned to and on same org as agent
         elif user.is_organizer:
+            print(queryset)
             queryset = Lead.objects.filter(
                 organization=user.userprofile, agent__isnull=False
             )
+            print(queryset)
             # leads on the same organization as the organizer ie loggedin user
         return queryset
 
@@ -258,4 +260,43 @@ class LeadCategoryUpdateView(LoginRequiredMixin,generic.UpdateView):
     
     
     
+    
+class CategoryCreateView(OrganizerandLoginRequiredMixin, generic.CreateView):
+    template_name = "category_create.html"
+
+    form_class = CategoryModelForm
+
+    def get_success_url(self):
+        return reverse("category-list")
+
+    def get_queryset(self):
+        user = self.request.user
+        return Category.objects.filter(organization=user.userprofile)
+
+    def form_valid(self, form):
+        category = form.save(commit=False)
+        category.organization = self.request.user.userprofile
+        category.save()
+       
+        return super(CategoryCreateView, self).form_valid(form)
+    
+    
+class CategoryDeleteView(OrganizerandLoginRequiredMixin, generic.DeleteView):
+    template_name = "category_delete.html"
+
+
+    def get_success_url(self):
+        return reverse("category-list")
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Category.objects.all()
+        if user.is_organizer:
+            queryset = Category.objects.filter(organization=user.userprofile)
+        else:
+            queryset = Category.objects.filter(organization=user.agent.organization)
+           
+
+        return queryset
+
     

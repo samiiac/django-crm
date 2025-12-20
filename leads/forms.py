@@ -35,12 +35,18 @@ class AssignAgentForm(forms.Form):
 class LeadCategoryUpdateForm(forms.ModelForm):
     class Meta:
         model = Lead
-        fields = (  "category", )
+        fields = ( "category", )
         
-    def __init__(self,args,**kwargs):
+    def __init__(self,*args,**kwargs):
         user = kwargs.pop('user')
         super().__init__(*args,**kwargs)
         if user.is_organizer:
             self.fields["category"].queryset =  Category.objects.filter(organization = user.userprofile)
         else:
              self.fields["category"].queryset =  Category.objects.filter(organization = user.agent.organization)
+             
+             
+class CategoryModelForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields=( "name",)

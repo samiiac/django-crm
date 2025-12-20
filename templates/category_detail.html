@@ -1,14 +1,21 @@
 {% extends "base.html" %} {%block content%}
 
 <section class="text-gray-600 body-font">
-  <div class="container px-5 py-24 mx-auto">
-    <div class="flex flex-col text-center w-full mb-20">
+  <div class="container px-15 py-12 mx-auto">
+    <div class="flex flex-col w-full mb-12">
       <h1
-        class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900"
+        class="sm:text-4xl text-center  text-3xl font-medium title-font mb-2 text-gray-900"
       >
         {{category.name}}
       </h1>
-     <p>All the leads in the category are as follow </p>
+    
+       
+        <a
+          href="{% url 'delete-category' category.id %}"
+          class="hover:text-blue-600 px-40"
+          >Delete category</a
+        >
+     
     </div>
     <div class="lg:w-2/3 w-full mx-auto overflow-auto">
       <table class="table-auto w-full text-left whitespace-no-wrap">
@@ -24,38 +31,30 @@
             >
               Last Name
             </th>
-            
-           
-           
           </tr>
         </thead>
         <tbody>
-            
-          
-            {% if category%}
-            {% for lead in category.leads.all %}
+          {% if category%} {% for lead in category.leads.all %}
 
-            <tr>
-
-            <td class="px-4 py-3"><a href="{% url 'leads-detail' lead.id %}">{{lead.first_name}}</a></td>
+          <tr>
+            <td class="px-4 py-3">
+              <a href="{% url 'leads-detail' lead.id %}">{{lead.first_name}}</a>
+            </td>
             <td class="px-4 py-3">{{lead.last_name}}</td>
-           </tr>
+          </tr>
 
-            {% endfor %}
-            {%endif%}
-          
-        
-          
+          {% endfor %} {%endif%}
         </tbody>
       </table>
     </div>
     <div class="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
-     
-      {% comment %} <button
+      {% comment %}
+      <button
         class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
       >
         Button
-      </button> {% endcomment %}
+      </button>
+      {% endcomment %}
     </div>
   </div>
 </section>

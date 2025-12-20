@@ -1,8 +1,9 @@
 {% extends "base.html" %} {% block content %}
 
 
-{% if agent_list %}
+
 <section class="text-gray-600 body-font">
+   {% if agent_list %}
   <div class="container px-15 py-20 mx-auto">
     <div class="flex items-center justify-between text-center w-full mb-10">
       <h1
@@ -37,8 +38,14 @@
       {% endfor %}
     </div>
   </div>
+  {% else %}
+  <div class="container flex justify-between px-15 py-20 mx-auto">
+  <h2>No agents yet.</h2>
+  <a href="{% url 'agent-create' %}" class="hover:text-blue-400">Create a new agent</a>
+  </div>
+  {% endif %}
 </section>
 
-{% else %}
-<h2>No leads yet.</h2>
-{% endif %} {% endblock %}
+
+
+ {% endblock %}

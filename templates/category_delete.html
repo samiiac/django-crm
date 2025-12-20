@@ -1,0 +1,22 @@
+{%extends 'base.html '%} {%load tailwind_filters%} {%block content%}
+
+<div class="max-w-lg mx-auto">
+  <h1 class="py-10 text-3xl">
+    Are you sure you want to delete the category '{{object.name}}'?
+  </h1>
+  <form method="POST" action=".">
+    {%csrf_token%} {{form|crispy}}
+    <button
+      type="submit"
+      class="w-full text-white text-center bg-indigo-500 border-0 py-1 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+    >
+      Delete Category
+    </button>
+  </form>
+  <button
+    class="w-full text-white text-center bg-indigo-500 border-0 mt-5 py-1 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+  >
+    <a href="{%url 'category-detail' object.id %}">No</a>
+  </button>
+</div>
+{%endblock%}
